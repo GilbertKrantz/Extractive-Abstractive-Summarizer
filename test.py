@@ -20,10 +20,10 @@ class loadTest:
         return self.data.iloc[index]['summary']
 
 class testModels:
-    def __init__(self) -> None:
+    def __init__(self, data, separator, encoding) -> None:
         self.abstractive_summarizer = abstractive_summarizer.textHandler()
         self.extractive_summarizer = extractive_summarizer.textHandler()
-        self.loadTest = loadTest()
+        self.loadTest = loadTest(data, separator, encoding)
         self.scorer = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
     
     def test_abstractive_summarizer(self, index):
