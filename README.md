@@ -6,6 +6,7 @@ This project is a web application built with Streamlit that provides both abstra
 
 - **Abstractive Summarization**: Generates a summary by interpreting the text and generating new sentences.
 - **Extractive Summarization**: Selects key sentences directly from the text to form a summary.
+- **Model Testing**: Test the summarization models using a dataset and evaluate their performance.
 
 ## Models Used
 
