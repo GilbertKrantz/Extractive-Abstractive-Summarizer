@@ -1,5 +1,6 @@
 import Abstractive_Summarization.abstractive_summarizer as abstractive_summarizer
 import Extractive_Summarization.extractive_summarizer as extractive_summarizer
+import Transformer_Summarizer.transformer_summarizer as transformer_summarizer
 import test as test
 import streamlit as st
 
@@ -41,9 +42,18 @@ def main():
             text = st.text_area("Enter the text you want to summarize: ")
             # Get user choice of summarization method
             if text != "":
-                summarization_method = st.selectbox("Choose the summarization method", ("Abstractive", "Extractive"))
+                summarization_method = st.selectbox("Choose the summarization method", ("Abstractive", "Extractive", "Transformer"))
             else:
                 st.text("Please enter some text to summarize")
+            
+            if text != "":
+                if summarization_method == "Transformer":
+                    model = st.selectbox("Choose the transformer model", ("google-t5/t5-small", "facebook/bart-base", 'others'))
+                    if model == "others":
+                        st.warning("MAY NOT WORK FOR ALL MODELS")
+                        model = st.text_input("Enter the model name (from Hugging Face Transformers)")
+            else:
+                model = None
             
             if st.button("Summarize"):
                 if summarization_method == "Abstractive":
@@ -57,6 +67,27 @@ def main():
                     text_handler = extractive_summarizer.textHandler()
                     summary = text_handler.summarize(text)
                     st.write(summary)
+                elif summarization_method == "Transformer":
+                    if model is not None:
+                        text_count = text.count(' ') + 1
+
+                        if text_count < 150:
+                            result = text_count + 1
+                        elif text_count > 512:
+                            result = text_count + 1
+                        elif text_count > 1024:
+                            result = (text_count + 1) // 2
+                        else:
+                            result = text_count + 1
+
+                        
+                        # Summarize the text using transformer summarization
+                        summarizer = transformer_summarizer.TransformerSummarizer(model_name=model)
+                        summary = summarizer.summarize(
+                            text, 
+                            max_length=result
+                            )
+                        st.write(summary)
         
 if __name__ == "__main__":
     main()
