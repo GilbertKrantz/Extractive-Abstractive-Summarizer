@@ -2,7 +2,7 @@ from transformers import pipeline, AutoTokenizer
 
 class TransformerSummarizer:
     def __init__(self, model_name="google-t5/t5-small"):
-        self.summarizer = pipeline("summarization", model=model_name, device=0)
+        self.summarizer = pipeline("summarization", model=model_name, device_map="auto")
         self.max_length = AutoTokenizer.from_pretrained(model_name).model_max_length
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
     
