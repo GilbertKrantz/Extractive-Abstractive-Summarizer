@@ -13,7 +13,7 @@ class T5Model:
     
     def summarize(self, text, max_length=150):
         input_ids = self.encode_text(text)
-        summary_ids = self.model.generate(input_ids, max_length=max_length, num_beams=2, length_penalty=2.0, early_stopping=True)
+        summary_ids = self.model.generate(input_ids, max_length=max_length)
         summary = self.decode_text(summary_ids[0])
         return summary
     
