@@ -55,39 +55,40 @@ def main():
             else:
                 model = None
             
-            if st.button("Summarize"):
-                if summarization_method == "Abstractive":
-                    # Summarize the text using abstractive summarization
-                    max_length = text.count(' ') + 1
-                    text_handler = abstractive_summarizer.textHandler(max_length=max_length)
-                    summary = text_handler.summarize(text)
-                    st.write(summary)
-                elif summarization_method == "Extractive":
-                    # Summarize the text using extractive summarization
-                    text_handler = extractive_summarizer.textHandler()
-                    summary = text_handler.summarize(text)
-                    st.write(summary)
-                elif summarization_method == "Transformer":
-                    if model is not None:
-                        text_count = text.count(' ') + 1
-
-                        if text_count < 150:
-                            result = text_count + 1
-                        elif text_count > 512:
-                            result = text_count + 1
-                        elif text_count > 1024:
-                            result = (text_count + 1) // 2
-                        else:
-                            result = text_count + 1
-
-                        
-                        # Summarize the text using transformer summarization
-                        summarizer = transformer_summarizer.TransformerSummarizer(model_name=model)
-                        summary = summarizer.summarize(
-                            text, 
-                            max_length=result
-                            )
+            if text != '':
+                if st.button("Summarize"):
+                    if summarization_method == "Abstractive":
+                        # Summarize the text using abstractive summarization
+                        max_length = text.count(' ') + 1
+                        text_handler = abstractive_summarizer.textHandler(max_length=max_length)
+                        summary = text_handler.summarize(text)
                         st.write(summary)
+                    elif summarization_method == "Extractive":
+                        # Summarize the text using extractive summarization
+                        text_handler = extractive_summarizer.textHandler()
+                        summary = text_handler.summarize(text)
+                        st.write(summary)
+                    elif summarization_method == "Transformer":
+                        if model is not None:
+                            text_count = text.count(' ') + 1
+
+                            if text_count < 150:
+                                result = text_count + 1
+                            elif text_count > 512:
+                                result = text_count + 1
+                            elif text_count > 1024:
+                                result = (text_count + 1) // 2
+                            else:
+                                result = text_count + 1
+
+                            
+                            # Summarize the text using transformer summarization
+                            summarizer = transformer_summarizer.TransformerSummarizer(model_name=model)
+                            summary = summarizer.summarize(
+                                text, 
+                                max_length=result
+                                )
+                            st.write(summary)
         
 if __name__ == "__main__":
     main()
