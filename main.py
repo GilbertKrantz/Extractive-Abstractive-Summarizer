@@ -1,6 +1,6 @@
 import Abstractive_Summarization.abstractive_summarizer as abstractive_summarizer
 import Extractive_Summarization.extractive_summarizer as extractive_summarizer
-import test as test
+# import test as test
 import streamlit as st
 
 def main():
@@ -21,25 +21,25 @@ def main():
         st.text("Choose the maximum number of documents to test")
         max_index = st.number_input("Maximum number of documents", min_value=1, value=20)
         
-        # test button
-        if st.button("Test"):
-            if data is not None and max_index is not None:
-                # Load the test dataset
-                test_models = test.testModels.loadTest(data, separator=",", encoding="latin")
-                # Test the summarization models
-                results = test_models.test_all(max_index=max_index)
-                # Plot the results (Show the Rouge-1 and Rouge-L F1 scores)
-                # Show the results in streamlit
-                fig = test_models.plot_results(results)
-                st.pyplot(fig)
+        # # test button
+        # if st.button("Test"):
+        #     if data is not None and max_index is not None:
+        #         # Load the test dataset
+        #         # test_models = test.testModels.loadTest(data, separator=",", encoding="latin")
+        #         # Test the summarization models
+        #         # results = test_models.test_all(max_index=max_index)
+        #         # Plot the results (Show the Rouge-1 and Rouge-L F1 scores)
+        #         # Show the results in streamlit
+        #         # fig = test_models.plot_results(results)
+        #         # st.pyplot(fig)
                 
-                # Download the results as a CSV file
-                if st.button("Download Results"):
-                    st.write("Downloading results")
-                    st.write(results)
-                    st.write("Download complete")
-            else:
-                st.text("Please upload a dataset and choose the maximum number of documents to test")
+        #         # # Download the results as a CSV file
+        #         # if st.button("Download Results"):
+        #         #     st.write("Downloading results")
+        #         #     st.write(results)
+        #         #     st.write("Download complete")
+        #     else:
+        #         st.text("Please upload a dataset and choose the maximum number of documents to test")
     else:
             # Get user text input
             text = st.text_area("Enter the text you want to summarize: ")
