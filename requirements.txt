@@ -1,0 +1,5 @@
+bert-extractive-summarizer==0.10.1
+torch==2.5.1
+torchaudio==2.5.1
+torchvision==0.20.1
+sentecepiece==0.2.0
