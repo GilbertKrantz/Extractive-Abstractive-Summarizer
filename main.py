@@ -6,7 +6,10 @@ def main():
     # Get user text input
     text = st.text_area("Enter the text you want to summarize: ")
     # Get user choice of summarization method
-    summarization_method = st.selectbox("Choose the summarization method", ("Abstractive", "Extractive"))
+    if text != "":
+        summarization_method = st.selectbox("Choose the summarization method", ("Abstractive", "Extractive"))
+    else:
+        st.text("Please enter some text to summarize")
     
     if st.button("Summarize"):
         if summarization_method == "Abstractive":
