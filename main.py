@@ -70,25 +70,17 @@ def main():
                         st.write(summary)
                     elif summarization_method == "Transformer":
                         if model is not None:
-                            text_count = text.count(' ') + 1
-
-                            if text_count < 150:
-                                result = text_count + 1
-                            elif text_count > 512:
-                                result = text_count + 1
-                            elif text_count > 1024:
-                                result = (text_count + 1) // 2
-                            else:
-                                result = text_count + 1
-
-                            
+                            # Check model context size
                             # Summarize the text using transformer summarization
                             summarizer = transformer_summarizer.TransformerSummarizer(model_name=model)
-                            summary = summarizer.summarize(
-                                text, 
-                                max_length=result
-                                )
-                            st.write(summary)
+                            if summarizer.max_length < len(summarizer.tokenizer(text).input_ids):
+                                st.warning("The text is too long for the model. Please enter a shorter text.")
+                            elif summarizer.max_length > len(summarizer.tokenizer(text).input_ids):
+                                # Padding the text to the maximum length
+                                padding = summarizer.max_length - len(summarizer.tokenizer(text).input_ids)
+                                text = text + " ".join(["" for i in range(padding)])
+                                summary = summarizer.summarize(text)
+                                st.write(summary)
         
 if __name__ == "__main__":
     main()
