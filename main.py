@@ -49,6 +49,7 @@ def main():
             if text != "":
                 if summarization_method == "Transformer":
                     model = st.selectbox("Choose the transformer model", ("google-t5/t5-small"))
+                    # ONLY USE IF YOUR COMPUTER CAN HANDLE IT
                     # if model == "others":
                     #     st.warning("MAY NOT WORK FOR ALL MODELS")
                     #     model = st.text_input("Enter the model name (from Hugging Face Transformers)")
