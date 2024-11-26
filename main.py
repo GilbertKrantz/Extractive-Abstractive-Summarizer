@@ -33,13 +33,9 @@ def main():
                 fig = test_models.plot_results(results)
                 st.pyplot(fig)
                 
-                # Download the results as a CSV file
-                if st.button("Download Results"):
-                    st.write("Downloading results")
-                    st.write(results)
-                    st.write("Download complete")
-            else:
-                st.text("Please upload a dataset and choose the maximum number of documents to test")
+                # Save the results to a CSV file
+                resultsDF = test_models.save_toDF(results)
+                st.download_button(label="Download Results", data=resultsDF.to_csv().encode('utf-8'), file_name="results.csv", mime="text/csv")
     else:
             # Get user text input
             text = st.text_area("Enter the text you want to summarize: ")

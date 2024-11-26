@@ -70,6 +70,18 @@ class testModels:
         plt.show()
         
         return fig
+    
+    def save_toDF(self, results):
+        # Save the results to a pandas DataFrame
+        rouge1_abstractive = [result['abstractive']['rouge1'].fmeasure for result in results]
+        rouge1_extractive = [result['extractive']['rouge1'].fmeasure for result in results]
+        rougeL_abstractive = [result['abstractive']['rougeL'].fmeasure for result in results]
+        rougeL_extractive = [result['extractive']['rougeL'].fmeasure for result in results]
+        
+        df = pd.DataFrame({'rouge1_abstractive': rouge1_abstractive, 'rouge1_extractive': rouge1_extractive,
+                           'rougeL_abstractive': rougeL_abstractive, 'rougeL_extractive': rougeL_extractive})
+        
+        return df
         
         
 
